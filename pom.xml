@@ -4,7 +4,7 @@
 
     <groupId>io.cereebro</groupId>
     <artifactId>cereebro</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
+    <version>1.2.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Cereebro</name>
@@ -330,6 +330,11 @@
     <profiles>
         <profile>
             <id>quality</id>
+            <properties>
+                <!-- Limit memory of CI builds -->
+                <!-- See : https://docs.sonarqube.org/display/PLUG/Usage+of+JaCoCo+with+Java+Plugin -->
+                <argLine>-Xmx1024M</argLine>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -350,6 +355,10 @@
                                 </goals>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                     </plugin>
                 </plugins>
             </build>
